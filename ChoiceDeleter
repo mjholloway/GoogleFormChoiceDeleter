@@ -1,0 +1,18 @@
+function deleteSelectedChoice() {
+  var myForm = FormApp.getActiveForm();
+  var myResponses = myForm.getResponses();
+  var len = myResponses.length;
+  var myMul = myForm.getItems()[0].asMultipleChoiceItem();
+  var myChoices = myMul.getChoices();
+  const myNewMul = [];
+  var newResponse = myResponses[len - 1].getItemResponses()[0].getResponse();
+  for (let i=0; i < myChoices.length; i++) {
+    if (myChoices[i].getValue() == newResponse) {
+      continue;
+    }
+    
+    myNewMul.push(myChoices[i]);
+  }
+  myMul.setChoices(myNewMul);
+  Logger.log(`Choice: ${newResponse} deleted.`);
+}
